@@ -1,14 +1,39 @@
 <template>
-  <nav>
-    <template v-if="!token">
-      <router-link to="/login" active-class="active">Login</router-link> |
-      <router-link to="/register" active-class="active">Register</router-link>
-    </template>
-
-    <template v-else>
-      <router-link to="/exams" active-class="active">Exams</router-link> |
-      <a href="#" @click.prevent="onLogout">Logout</a>
-    </template>
+  <nav class="navbar">
+    <div class="logo">SpeakEval</div>
+    <div class="links">
+      <template v-if="!token">
+        <router-link
+          to="/login"
+          class="nav-link"
+          active-class="active-link"
+        >
+          Login
+        </router-link>
+        <router-link
+          to="/register"
+          class="nav-link"
+          active-class="active-link"
+        >
+          Register
+        </router-link>
+      </template>
+      <template v-else>
+        <router-link
+          to="/exams"
+          class="nav-link"
+          active-class="active-link"
+        >
+          Exams
+        </router-link>
+        <button
+          @click.prevent="onLogout"
+          class="nav-button"
+        >
+          Logout
+        </button>
+      </template>
+    </div>
   </nav>
 </template>
 
@@ -23,19 +48,8 @@ export default {
   },
   methods: {
     onLogout() {
-      // Emit logout so App.vue can clear token and redirect
-      this.$emit('logout')
+      this.$emit('logout');
     }
   }
-}
+};
 </script>
-
-<style>
-nav {
-  margin-bottom: 20px;
-}
-.active {
-  font-weight: bold;
-  color: blue;
-}
-</style>

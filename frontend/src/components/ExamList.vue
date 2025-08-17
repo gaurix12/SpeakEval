@@ -1,35 +1,24 @@
 <template>
-  <div>
+  <div class="exam-list-container">
     <h2>Exams</h2>
     <button @click="fetchExams">Refresh Exams</button>
+
     <ul>
       <li v-for="exam in exams" :key="exam.id">
         <strong>{{ exam.title }}</strong> - Duration: {{ exam.duration_minutes }} min
         <button @click="startExam(exam.id)">Start</button>
       </li>
     </ul>
-
-    <ExamStart
-      v-if="selectedExamId"
-      :token="token"
-      :examId="selectedExamId"
-      @completed="onExamCompleted"
-      @cancel="selectedExamId = null"
-      @logout="$emit('logout')"
-    />
   </div>
 </template>
 
 <script>
-import ExamStart from './ExamStart.vue'
-
 export default {
+  name: 'ExamList',
   props: ['token'],
-  components: { ExamStart },
   data() {
     return {
       exams: [],
-      selectedExamId: null
     }
   },
   methods: {
@@ -42,27 +31,23 @@ export default {
         })
         if (res.status === 401) {
           alert('Unauthorized. Please login again.')
-          // Notify App to logout
           this.$emit('logout')
           return
         }
-        if (!res.ok) {
-          throw new Error('Failed to fetch exams')
-        }
+        if (!res.ok) throw new Error('Failed to fetch exams')
         this.exams = await res.json()
       } catch (e) {
         console.error('Error fetching exams:', e)
         alert('Failed to load exams')
       }
     },
-    startExam(id) {
-      this.selectedExamId = id
-    },
-    onExamCompleted() {
-      this.selectedExamId = null
-      this.fetchExams()
+
+    // Navigate to a separate page. Let ExamStart create the attempt.
+    startExam(examId) {
+      this.$router.push({ name: 'ExamStart', params: { examId } })
     }
   },
+
   mounted() {
     if (this.token) {
       this.fetchExams()
