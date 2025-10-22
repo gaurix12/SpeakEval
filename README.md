@@ -19,8 +19,8 @@ Our platform empowers millions of disabled students — who currently rely on sc
 * SpeechRecognition → To convert speech to text
 * PyAudio → To capture microphone input in real-time
 * NumPy → For array/matrix operations used in processing
-* Werkzeug → For password hashing (if authentication is included)
-* JWT (PyJWT) → For token-based authentication (if implemented)  
+* Werkzeug → For password hashing
+* JWT (PyJWT) → For token-based authentication 
 
 **Team**
 * Gauri Sudharsini P
