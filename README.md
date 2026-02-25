@@ -25,5 +25,5 @@ Our platform empowers millions of disabled students — who currently rely on sc
 **Team**
 * Gauri Sudharsini P
 * Ananya I
-* B Vaishnavi
+
   
